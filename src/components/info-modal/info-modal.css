@@ -1,0 +1,36 @@
+.info-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+    color: #fff;
+    background-color: #e5383b;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all ease-in .2s;
+    border-radius: 8px;
+}
+
+.info-modal.show {
+    transform: translate(-50%, -50%) scale(1);
+    transition: all ease-in .2s;
+}
+
+.info-modal__text {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #fff;
+    text-align: center;
+}
+
+.info-modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+}
