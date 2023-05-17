@@ -1,0 +1,16 @@
+# Игнорировать node_modules
+node_modules/
+
+# Игнорировать файлы, созданные вашей средой разработки
+.DS_Store
+.env
+.vscode/
+
+# Игнорировать сгенерированные файлы сборки
+/build
+/dist
+
+# Игнорировать кеш пакетов npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
