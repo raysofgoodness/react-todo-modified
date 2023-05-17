@@ -5,7 +5,6 @@ import Search from "../search/search";
 import AddFilter from "../add-filter/add-filter";
 import EmployeesList from "../employees-list/employees-list";
 import AddForm from "../add-form/add-form";
-import InfoModal from "../info-modal/info-modal";
 
 import './app.css';
 
@@ -17,11 +16,11 @@ class App extends Component {
                 {name: 'John Kelly', salary: 1800, increase: false, rise: true, id: 1},
                 {name: 'Mike Spencer', salary: 800, increase: true, rise: false, id: 2},
                 {name: 'Marshall Mathers', salary: 2400, increase: false, rise: false, id: 3}
-            ]
+            ],
+            term: '',
+            filter: 'rise'
         }
     }
-
-
 
     addItem = (name, salary) => {
        const newItem = {name,
@@ -52,9 +51,41 @@ class App extends Component {
         }));
     }
 
+    searchEpm = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term});
+    }
+
+    // onUpdateFilter = (data) => {
+    //     this.setState({data});
+    // }
+
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'rise':
+                return items.filter(item => item.rise === true);
+            case 'moreThen1000' :
+                return items.filter(item => item.salary > 1500);
+            default:
+                return items;
+        }
+    }
+
     render() {
+        const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase === true).length;
+        const visibleData = this.filterPost(this.searchEpm(data, term), filter);
+
         return (
             <div className='app'>
                 <Header
@@ -62,11 +93,14 @@ class App extends Component {
                     receiveEmployees={increased}
                 />
                 <div className="search-panel">
-                    <Search/>
-                    <AddFilter/>
+                    <Search onUpdateSearch={this.onUpdateSearch}/>
+                    <AddFilter
+                        // onUpdateFilter={this.onUpdateFilter}
+                        // data={this.state.data}
+                    />
                 </div>
                 <EmployeesList
-                    data={this.state.data}
+                    data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}
                 />
