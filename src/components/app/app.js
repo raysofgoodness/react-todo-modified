@@ -18,7 +18,7 @@ class App extends Component {
                 {name: 'Marshall Mathers', salary: 2400, increase: false, rise: false, id: 3}
             ],
             term: '',
-            filter: 'rise'
+            filter: 'all'
         }
     }
 
@@ -65,10 +65,6 @@ class App extends Component {
         this.setState({term});
     }
 
-    // onUpdateFilter = (data) => {
-    //     this.setState({data});
-    // }
-
     filterPost = (items, filter) => {
         switch (filter) {
             case 'rise':
@@ -78,6 +74,10 @@ class App extends Component {
             default:
                 return items;
         }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter});
     }
 
     render() {
@@ -95,8 +95,8 @@ class App extends Component {
                 <div className="search-panel">
                     <Search onUpdateSearch={this.onUpdateSearch}/>
                     <AddFilter
-                        // onUpdateFilter={this.onUpdateFilter}
-                        // data={this.state.data}
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect}
                     />
                 </div>
                 <EmployeesList
